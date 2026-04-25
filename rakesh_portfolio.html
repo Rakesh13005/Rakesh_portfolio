@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rakesh M Angadi – Embedded Systems Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent: #00e5ff;
+    --accent2: #ff6b35;
+    --accent3: #7fff00;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridPan 20s linear infinite;
+  }
+
+  @keyframes gridPan {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,107,53,0.06) 0%, transparent 70%);
+    bottom: 0; left: 200px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  .hero-name span { color: var(--accent); }
+
+  .hero-role {
+    font-size: 1rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .hero-role .highlight { color: var(--accent2); }
+
+  .hero-bio {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: #9090a8;
+    max-width: 600px;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
+
+  .btn {
+    padding: 0.75rem 1.8rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,229,255,0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+  }
+
+  .section-title {
+    font-family: var(--sans);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* SKILLS */
+  #skills { padding-top: 2rem; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-card:hover::before { transform: scaleY(1); }
+
+  .skill-card-title {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .skill-card:hover .tag {
+    border-color: rgba(0,229,255,0.3);
+    color: var(--text);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .project-num {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--accent2);
+    opacity: 0.7;
+  }
+
+  .project-title {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tech-badge {
+    font-size: 0.62rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(255,107,53,0.1);
+    border: 1px solid rgba(255,107,53,0.25);
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+
+  .project-card .learn-item {
+    font-size: 0.68rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .project-card .learn-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent3);
+    font-size: 0.65rem;
+  }
+
+  .learnings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .learnings-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 0.5rem;
+  }
+
+  /* EDUCATION */
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    padding: 1.8rem 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .edu-item:hover { border-color: var(--accent); }
+
+  .edu-year {
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 0.2rem;
+  }
+
+  .edu-degree {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-school {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-score {
+    font-size: 0.7rem;
+    color: var(--accent2);
+  }
+
+  /* ACHIEVEMENTS */
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .achieve-item {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: border-color 0.3s;
+  }
+
+  .achieve-item:hover { border-color: var(--accent3); }
+
+  .achieve-icon {
+    color: var(--accent3);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .achieve-text {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  #contact {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 5rem 4rem;
+  }
+
+  .contact-title {
+    font-family: var(--sans);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-sub {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,229,255,0.15);
+  }
+
+  .contact-link svg { width: 16px; height: 16px; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* STATUS BADGE */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--accent3);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease 0.05s both;
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    background: var(--accent3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(127,255,0,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(127,255,0,0); }
+  }
+
+  /* DIVIDER */
+  .full-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 0 auto;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    animation: fadeUp 1s ease 1s both;
+  }
+
+  .scroll-hint .arrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+    animation: scrollAnim 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollAnim {
+    0%, 100% { transform: scaleY(1); opacity: 0.5; }
+    50% { transform: scaleY(1.3); opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    #contact { padding: 4rem 1.5rem; }
+    .contact-links { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">RA/</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero" style="max-width:100%;padding-left:4rem;padding-right:4rem;">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      AVAILABLE FOR OPPORTUNITIES
+    </div>
+    <div class="hero-tag">// Embedded Systems Engineer</div>
+    <h1 class="hero-name">Rakesh<br><span>M Angadi</span></h1>
+    <p class="hero-role">
+      <span class="highlight">Embedded Linux</span> · System Programming · Real-Time Applications · Network Protocols
+    </p>
+    <p class="hero-bio">
+      Engineer with a strong foundation in embedded C, Linux system programming, and microcontroller-based development. Passionate about low-level engineering — from bare-metal firmware to kernel interfaces and network protocol implementation.
+    </p>
+    <div class="hero-links">
+      <a href="mailto:rakeshangadi1210@gmail.com" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg>
+        Get In Touch
+      </a>
+      <a href="https://github.com/Rakesh13005" target="_blank" class="btn btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>
+        GitHub
+      </a>
+      <a href="https://bit.ly/3HG43Ak" target="_blank" class="btn btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="arrow"></div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-up">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card fade-up">
+      <div class="skill-card-title">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">Advanced C</span>
+        <span class="tag">C++</span>
+        <span class="tag">OOP</span>
+        <span class="tag">Embedded C</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-card-title">System Programming</div>
+      <div class="skill-tags">
+        <span class="tag">Linux Kernel Syscalls</span>
+        <span class="tag">IPC (Pipe/FIFO/SHM)</span>
+        <span class="tag">TCP/UDP Sockets</span>
+        <span class="tag">pThreads</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-card-title">Embedded Linux</div>
+      <div class="skill-tags">
+        <span class="tag">U-Boot</span>
+        <span class="tag">Cross Compiling</span>
+        <span class="tag">Kernel Porting</span>
+        <span class="tag">ARM Board Bring-up</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-card-title">Concepts</div>
+      <div class="skill-tags">
+        <span class="tag">Microprocessors</span>
+        <span class="tag">Digital Electronics</span>
+        <span class="tag">DSP</span>
+        <span class="tag">AIML</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-card-title">Tools & Platforms</div>
+      <div class="skill-tags">
+        <span class="tag">Linux</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">Makefiles</span>
+        <span class="tag">Arduino</span>
+        <span class="tag">Figma</span>
+        <span class="tag">Git/GitHub</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-card-title">Data Structures</div>
+      <div class="skill-tags">
+        <span class="tag">Hash Tables</span>
+        <span class="tag">Linked Lists</span>
+        <span class="tag">Arrays</span>
+        <span class="tag">Memory Management</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-up">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 01</div>
+      <div class="project-title">Image Steganography<br>LSB Encoding & Decoding</div>
+      <div class="project-desc">Encodes a secret text file inside a BMP image using Least Significant Bit encoding — embedding length metadata and data bit by bit, without altering visible image properties.</div>
+      <div class="project-tech">
+        <span class="tech-badge">Embedded C</span>
+        <span class="tech-badge">Bitwise Ops</span>
+        <span class="tech-badge">File I/O</span>
+        <span class="tech-badge">Makefile</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">BMP pixel structure & header analysis</div>
+        <div class="learn-item">Bitwise data embedding without perceptual loss</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 02</div>
+      <div class="project-title">Address Book Management System</div>
+      <div class="project-desc">Console-based C application to add, view, search, update, and delete contacts with full data persistence through file operations.</div>
+      <div class="project-tech">
+        <span class="tech-badge">C</span>
+        <span class="tech-badge">File Handling</span>
+        <span class="tech-badge">Structures</span>
+        <span class="tech-badge">Pointers</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Safe file open/read/write/close patterns</div>
+        <div class="learn-item">Dynamic memory allocation & deallocation</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 03</div>
+      <div class="project-title">MP3 Tag Reader</div>
+      <div class="project-desc">Parses ID3 metadata (title, artist, album, year) directly from MP3 binary file structure at low level — no external libraries used.</div>
+      <div class="project-tech">
+        <span class="tech-badge">C</span>
+        <span class="tech-badge">Binary Parsing</span>
+        <span class="tech-badge">fseek</span>
+        <span class="tech-badge">Linux</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">ID3 tag structure & metadata offsets</div>
+        <div class="learn-item">Buffer overflow prevention in binary reads</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 04</div>
+      <div class="project-title">Lexical Analyzer</div>
+      <div class="project-desc">Reads source code files and breaks them into categorized tokens — keywords, identifiers, operators, constants — scanning character by character.</div>
+      <div class="project-tech">
+        <span class="tech-badge">C</span>
+        <span class="tech-badge">Strings</span>
+        <span class="tech-badge">File I/O</span>
+        <span class="tech-badge">CLI Args</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Tokenization logic with character-level scanning</div>
+        <div class="learn-item">Efficient handling of large source files</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 05</div>
+      <div class="project-title">Inverted Search Engine</div>
+      <div class="project-desc">Inverted index system mapping each word across multiple files with occurrence counts, enabling fast multi-file word retrieval using hash tables and linked lists.</div>
+      <div class="project-tech">
+        <span class="tech-badge">C</span>
+        <span class="tech-badge">Hash Tables</span>
+        <span class="tech-badge">Linked Lists</span>
+        <span class="tech-badge">String Processing</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Inverted indexing for fast retrieval</div>
+        <div class="learn-item">Time complexity optimization</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 06</div>
+      <div class="project-title">Arbitrary Precision Calculator</div>
+      <div class="project-desc">Performs arithmetic on numbers beyond standard data type limits using custom data structures — handling addition, subtraction, multiplication, and division.</div>
+      <div class="project-tech">
+        <span class="tech-badge">C</span>
+        <span class="tech-badge">Linked Lists</span>
+        <span class="tech-badge">Memory Mgmt</span>
+        <span class="tech-badge">Algorithms</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Carry/borrow management across digits</div>
+        <div class="learn-item">Algorithm design for large-scale computation</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 07</div>
+      <div class="project-title">Mini Shell</div>
+      <div class="project-desc">Linux shell capable of executing external commands, supporting piping, I/O redirection, background processes, and signal handling (SIGINT, SIGTSTP).</div>
+      <div class="project-tech">
+        <span class="tech-badge">Embedded C</span>
+        <span class="tech-badge">fork/exec/wait</span>
+        <span class="tech-badge">IPC</span>
+        <span class="tech-badge">Signals</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Linux process management & file descriptors</div>
+        <div class="learn-item">Multi-pipe data flow management</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">PROJECT 08</div>
+      <div class="project-title">TFTP Server & Client</div>
+      <div class="project-desc">Trivial File Transfer Protocol implementation over UDP sockets supporting file upload/download in both NetASCII and Octet (binary) transfer modes.</div>
+      <div class="project-tech">
+        <span class="tech-badge">Embedded C</span>
+        <span class="tech-badge">UDP Sockets</span>
+        <span class="tech-badge">Network Programming</span>
+        <span class="tech-badge">Protocol Impl</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Block numbering & ACK sequence management</div>
+        <div class="learn-item">NetASCII text conversion logic</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">ACADEMIC PROJECT</div>
+      <div class="project-title">Smart Sleeping Mask</div>
+      <div class="project-desc">Wearable Arduino Nano-based sleep aid that plays calming audio through an integrated MP3 player and speaker embedded in an eye mask.</div>
+      <div class="project-tech">
+        <span class="tech-badge">Arduino Nano</span>
+        <span class="tech-badge">Embedded C</span>
+        <span class="tech-badge">MP3 Module</span>
+        <span class="tech-badge">Hardware Design</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Compact electronics integration in wearables</div>
+        <div class="learn-item">Low-power audio output management</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-num">INTERNSHIP PROJECT</div>
+      <div class="project-title">SCRAP-Z — Smart Scrap Collection App</div>
+      <div class="project-desc">Mobile app UI/UX design connecting households with scrap collectors — with real-time tracking, pickup scheduling, and fair pricing for recyclable waste.</div>
+      <div class="project-tech">
+        <span class="tech-badge">Figma</span>
+        <span class="tech-badge">UI/UX Design</span>
+        <span class="tech-badge">Prototyping</span>
+        <span class="tech-badge">Wireframing</span>
+      </div>
+      <div class="learnings">
+        <div class="learnings-title">Key Learnings</div>
+        <div class="learn-item">Real-world problem to app workflow conversion</div>
+        <div class="learn-item">UX for sustainable digital solutions</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header fade-up">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-list">
+
+    <div class="edu-item fade-up">
+      <div class="edu-year">2021 – 2025</div>
+      <div>
+        <div class="edu-degree">B.E. in Electronics & Communication Engineering</div>
+        <div class="edu-school">Jain College of Engineering, Belagavi</div>
+        <div class="edu-score">CGPA: 7.17</div>
+      </div>
+    </div>
+
+    <div class="edu-item fade-up">
+      <div class="edu-year">Current</div>
+      <div>
+        <div class="edu-degree">Advanced Embedded Systems Course</div>
+        <div class="edu-school">Emertxe Information Technologies, Bangalore</div>
+        <div class="edu-score">Govt. of India Certified · Skill India / NSDC · ELE/Q1501</div>
+      </div>
+    </div>
+
+    <div class="edu-item fade-up">
+      <div class="edu-year">2021</div>
+      <div>
+        <div class="edu-degree">Class XII – PU</div>
+        <div class="edu-school">CMP PU College, Lokapur</div>
+        <div class="edu-score">77%</div>
+      </div>
+    </div>
+
+    <div class="edu-item fade-up">
+      <div class="edu-year">2019</div>
+      <div>
+        <div class="edu-degree">Class X – CBSE</div>
+        <div class="edu-school">EPS, Lokapur</div>
+        <div class="edu-score">70%</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header fade-up">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Achievements</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="achieve-grid">
+    <div class="achieve-item fade-up">
+      <div class="achieve-icon">◈</div>
+      <div class="achieve-text">Member of IEEE association for 2 years (2023–2024)</div>
+    </div>
+    <div class="achieve-item fade-up">
+      <div class="achieve-icon">◈</div>
+      <div class="achieve-text">Volunteered at Google DevFest hosted by GIT Belagavi (2024)</div>
+    </div>
+    <div class="achieve-item fade-up">
+      <div class="achieve-icon">◈</div>
+      <div class="achieve-text">Attended IEEE NKSS at BVVS College of Engineering, Bagalkot</div>
+    </div>
+    <div class="achieve-item fade-up">
+      <div class="achieve-icon">◈</div>
+      <div class="achieve-text">Paper presentation contestant at Shri Vithal Education & Research Institute, Pandharpur</div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" style="max-width:100%;">
+  <h2 class="contact-title fade-up">Let's <span style="color:var(--accent)">Connect</span></h2>
+  <p class="contact-sub fade-up">Open to embedded systems roles, internships & collaborations</p>
+  <div class="contact-links fade-up">
+    <a href="mailto:rakeshangadi1210@gmail.com" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg>
+      rakeshangadi1210@gmail.com
+    </a>
+    <a href="tel:7259708292" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58z"/></svg>
+      +91 72597 08292
+    </a>
+    <a href="https://github.com/Rakesh13005" target="_blank" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>
+      github.com/Rakesh13005
+    </a>
+    <a href="https://bit.ly/3HG43Ak" target="_blank" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 RAKESH M ANGADI — EMBEDDED SYSTEMS ENGINEER — BANGALORE, INDIA</p>
+</footer>
+
+<script>
+  // Scroll-triggered fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
